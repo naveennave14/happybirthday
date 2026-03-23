@@ -1,40 +1,52 @@
-const canvas = document.getElementById('fireworksCanvas');
-const ctx = canvas.getContext('2d');
+(function () {
+  window.Components = window.Components || {};
 
-// 1. Setup Canvas Sizing
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+  window.Components.fireworks = {
+    overlay: true,
 
-const particles = [];
+    render(container, section) {
+      const div = document.createElement("div");
+      div.className = "section section-fireworks";
 
-// 2. Particle Blueprint
-class Particle {
-    constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        
-        // Random angle & speed to form a circle
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 6 + 1;
-        
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-        
-        this.gravity = 0.05;
-        this.friction = 0.96; // Drag
-        this.alpha = 1;       // Opacity
-        this.decay = Math.random() * 0.015 + 0.007; // Lifespan
-    }
+      const count = section.count || 20;
+      const colors = ["#ff69b4", "#15a1ed", "#f9d423", "#42e695", "#bd6ecf", "#ff6b6b", "#ffd93d"];
 
-    update() {
-        this.vx *= this.friction;
-        this.vy *= this.friction;
-        this.vy += this.gravity;
+      for (let i = 0; i < count; i++) {
+        const spark = document.createElement("div");
+        spark.className = "firework-spark";
+        spark.style.left = (Math.random() * 90 + 5) + "%";
+        spark.style.top = (Math.random() * 70 + 10) + "%";
+        spark.style.backgroundColor = colors[i % colors.length];
+        spark.style.width = spark.style.height = (Math.random() * 6 + 4) + "px";
+        div.appendChild(spark);
+      }
+
+      container.appendChild(div);
+      return div;
+    },
+
+    animate(tl, el) {
+      const sparks = el.querySelectorAll(".firework-spark");
+
+      tl.fromTo(sparks,
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1, opacity: 1, duration: 0.3,
+          stagger: { each: 0.08, from: "random" },
+          ease: "back.out(2)",
+        }
+      )
+      .to(sparks, {
+        y: () => (Math.random() - 0.5) * window.innerHeight * 0.4,
+        x: () => (Math.random() - 0.5) * window.innerWidth * 0.4,
+        opacity: 0, scale: 0, duration: 1.2,
+        stagger: { each: 0.05, from: "random" },
+        ease: "power2.out",
+      }, "+=0.5")
+      .to(el, { opacity: 0, duration: 0.3 });
+    },
+  };
+})();        this.vy += this.gravity;
         this.x += this.vx;
         this.y += this.vy;
         this.alpha -= this.decay;
