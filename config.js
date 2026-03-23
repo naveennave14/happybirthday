@@ -65,22 +65,30 @@ const CONFIG = {
     },
     {
       type: "announcement",
-      text: "It's your birthday!! ",
+      text: "It's your 27th birthday!! ",
     },
     {
       type: "chatbox",
       message:
-        "Happy birthday to youu!! Wishing you a wonderful year ahead filled with joy, love, and endless happiness!",
+        "Happy birthday! May your day be filled with laughter, your heart with joy, and the year ahead with everything you’ve been dreaming of.",
+      type: "countdown",
+      from: 16,
       buttonText: "Send",
     },
     {
       type: "ideas",
       lines: [
-        "That's what I was going to do.",
-        "But then I stopped.",
-        "I realised, I wanted to do something <strong>special</strong>.",
-        "Because,",
-        "You are Special <span>:)</span>",
+        "Another beautiful year of you.",
+        "So grateful to celebrate this day",
+        "You deserve all the happiness in the world",
+        "Enjoy every single moment...",
+        "That you experience today",
+        "Fill it with your most beautiful smile",
+        "And make it the best memory..",
+        "Thanks for the friendship we made",
+        "Lastly...",
+        "I'd like to wish you one more time",
+        "Happy Birthday Preethika<span>:)</span>",
       ],
       bigLetters: "SO",
     },
@@ -91,24 +99,24 @@ const CONFIG = {
     },
     {
       type: "stars",
-      count: 40,
+      count: 60,
     },
     {
       type: "balloons",
-      count: 25,
+      count: 20,
     },
     {
       type: "profile",
-      wishTitle: "Happy Birthday!",
-      wishText: "May the js.prototypes always be with you! ;)",
+      wishTitle: "Happy Birthday Preethika!",
+      wishText: " I am always be with you by friends! ;)",
     },
     {
       type: "fireworks",
-      count: 24,
+      count: 40,
     },
     {
       type: "confetti",
-      count: 9,
+      count: 23,
     },
     {
       type: "closing",
