@@ -1,40 +1,39 @@
-const canvas = document.getElementById('starCanvas');
-const ctx = canvas.getContext('2d');
+(function () {
+  window.Components = window.Components || {};
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+  window.Components.stars = {
+    overlay: true,
 
-const stars = [];
-const starCount = 120; // Lowered slightly because colorful shapes take a bit more processing
+    render(container, section) {
+      const div = document.createElement("div");
+      div.className = "section section-stars";
 
-// Helper function to draw an exact 5-point star
-function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius) {
-    let rot = (Math.PI / 2) * 3;
-    let x = cx;
-    let y = cy;
-    let step = Math.PI / spikes;
+      const count = section.count || 40;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.animationDelay = (Math.random() * 3).toFixed(2) + "s";
+        star.style.width = star.style.height =
+          (Math.random() * 4 + 2).toFixed(1) + "px";
+        div.appendChild(star);
+      }
 
-    ctx.beginPath();
-    ctx.moveTo(cx, cy - outerRadius);
+      container.appendChild(div);
+      return div;
+    },
 
-    for (let i = 0; i < spikes; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-    }
-    
-    ctx.lineTo(cx, cy - outerRadius);
-    ctx.closePath();
+    animate(tl, el) {
+      tl.fromTo(
+        el,
+        { opacity: 0 },
+        { opacity: 1, duration: 1 }
+      )
+      .to(el, { opacity: 0, duration: 1 }, "+=4");
+    },
+  };
+})();    ctx.closePath();
 }
 
 class Star {
