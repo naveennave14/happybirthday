@@ -61,7 +61,7 @@ const CONFIG = {
     {
       type: "countdown",
       from: 3,                    // Countdown from this number
-      goText: "🎊",              // Text shown after countdown ends
+      goText: "🎂",              // Text shown after countdown ends
     },
     {
       type: "announcement",
@@ -77,7 +77,7 @@ const CONFIG = {
       type: "ideas",
       lines: [
         "Another beautiful year of you.",
-        "So grateful to celebrate this day",
+        "So greateful to celebrate this day",
         "You deserve all the happiness in the world",
         "Enjoy every single moment...",
         "That you experience today",
@@ -105,12 +105,13 @@ const CONFIG = {
     },
     {
       type: "profile",
-      wishTitle: "HappyBirthdayPreethika",
+      wishTitle: "Happy Birthday",
+      wishTitle: "Preethika!",
       wishText: " I am always be with you by friends! ;)",
     },
     {
       type: "fireworks",
-      count: 40,
+      count: 70,
     },
     {
       type: "confetti",
