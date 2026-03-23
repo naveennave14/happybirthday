@@ -71,8 +71,6 @@ const CONFIG = {
       type: "chatbox",
       message:
         "Happy birthday! May your day be filled with laughter, your heart with joy, and the year ahead with everything you’ve been dreaming of.",
-      type: "countdown",
-      from: 16,
       buttonText: "Send",
     },
     {
