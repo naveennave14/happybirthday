@@ -1,6 +1,7 @@
-const canvas = document.getElementById('starCanvas');
+const canvas = document.getElementById('fireworksCanvas');
 const ctx = canvas.getContext('2d');
 
+// 1. Setup Canvas Sizing
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -8,33 +9,91 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-const stars = [];
-const starCount = 120; // Lowered slightly because colorful shapes take a bit more processing
+const particles = [];
 
-// Helper function to draw an exact 5-point star
-function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius) {
-    let rot = (Math.PI / 2) * 3;
-    let x = cx;
-    let y = cy;
-    let step = Math.PI / spikes;
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy - outerRadius);
-
-    for (let i = 0; i < spikes; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
+// 2. Particle Blueprint
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        
+        // Random angle & speed to form a circle
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 1;
+        
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        
+        this.gravity = 0.05;
+        this.friction = 0.96; // Drag
+        this.alpha = 1;       // Opacity
+        this.decay = Math.random() * 0.015 + 0.007; // Lifespan
     }
-    
-    ctx.lineTo(cx, cy - outerRadius);
-    ctx.closePath();
+
+    update() {
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+    }
+
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+// 3. Create Firework Explosion
+function createFirework(x, y) {
+    const particleCount = 120;
+    const hue = Math.floor(Math.random() * 360);
+    const color = `hsl(${hue}, 100%, 60%)`; // Bright neon colors
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle(x, y, color));
+    }
+}
+
+// 4. Animation Frame Loop
+function animate() {
+    // Semi-transparent background creates light streaks/trails
+    ctx.fillStyle = 'rgba(11, 15, 25, 0.2)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        p.draw();
+
+        if (p.alpha <= 0) {
+            particles.splice(i, 1); // Clean up memory
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+// 5. Triggers (Click and Auto-launch)
+window.addEventListener('click', (e) => {
+    createFirework(e.clientX, e.clientY);
+});
+
+setInterval(() => {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * (canvas.height * 0.5); // Top half of the screen
+    createFirework(x, y);
+}, 1000);
+
+// Run!
+animate();    ctx.closePath();
 }
 
 class Star {
