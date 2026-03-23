@@ -46,4 +46,16 @@
       .to(el, { opacity: 0, duration: 0.3 });
     },
   };
+})();        }
+      )
+      .to(sparks, {
+        y: () => (Math.random() - 0.5) * window.innerHeight * 0.4,
+        x: () => (Math.random() - 0.5) * window.innerWidth * 0.4,
+        opacity: 0, scale: 0, duration: 1.2,
+        stagger: { each: 0.05, from: "random" },
+        ease: "power2.out",
+      }, "+=0.5")
+      .to(el, { opacity: 0, duration: 0.3 });
+    },
+  };
 })();
