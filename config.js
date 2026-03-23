@@ -97,7 +97,7 @@ const CONFIG = {
     },
     {
       type: "stars",
-      count: 60,
+      count: 100,
     },
     {
       type: "balloons",
@@ -105,7 +105,7 @@ const CONFIG = {
     },
     {
       type: "profile",
-      wishTitle: "Happy Birthday Preethika!",
+      wishTitle: "HappyBirthdayPreethika",
       wishText: " I am always be with you by friends! ;)",
     },
     {
